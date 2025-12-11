@@ -180,7 +180,6 @@
         .door-card.opened {
             opacity: 0.6;
             transform: scale(0.95);
-            /* pointer-events: none; */
         }
 
         .door-card:not(.opened):hover {
@@ -480,43 +479,185 @@
             font-weight: bold;
         }
 
+        /* Responsive Design */
         @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .screen {
+                padding: 10px;
+            }
+
+            .boy-container {
+                padding: 30px 20px;
+                border-radius: 20px;
+                max-width: 100%;
+            }
+
+            .boy-image {
+                max-width: 200px;
+                height: 200px;
+                margin-bottom: 20px;
+            }
+
             .doors-grid {
-                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-                gap: 20px;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+                margin-top: 20px;
+            }
+
+            .door-card {
+                padding: 15px;
+                border-radius: 15px;
             }
 
             .door-image {
-                height: 150px;
+                height: 120px;
+                margin-bottom: 10px;
+            }
+
+            .door-name {
+                font-size: 18px;
             }
 
             .doors-title {
-                font-size: 32px;
+                font-size: 28px;
+                padding: 15px 10px;
             }
 
-            .boy-image, .job-image, .tool-image {
-                height: 250px;
+            .job-image, .tool-image {
+                height: 200px;
+                max-width: 200px;
             }
 
             .start-btn {
                 padding: 15px 40px;
-                font-size: 20px;
+                font-size: 18px;
+            }
+
+            .job-container, .congrats-container, .question-container {
+                padding: 30px 20px;
+                border-radius: 20px;
+            }
+
+            .job-title {
+                font-size: 28px;
+                margin-bottom: 20px;
+            }
+
+            .return-btn {
+                padding: 12px 35px;
+                font-size: 18px;
             }
 
             .congrats-title {
-                font-size: 36px;
-            }
-
-            .congrats-message {
-                font-size: 20px;
-            }
-
-            .question-title {
                 font-size: 32px;
             }
 
+            .congrats-message {
+                font-size: 18px;
+            }
+
+            .question-title {
+                font-size: 26px;
+                margin-bottom: 25px;
+            }
+
             .answer-grid {
-                grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+
+            .answer-card {
+                padding: 15px 10px;
+                border-radius: 12px;
+            }
+
+            .checkmark {
+                width: 28px;
+                height: 28px;
+                font-size: 16px;
+                top: 8px;
+                right: 8px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .doors-title {
+                font-size: 24px;
+                padding: 10px;
+            }
+
+            .door-card {
+                padding: 12px;
+            }
+
+            .door-image {
+                height: 100px;
+            }
+
+            .door-name {
+                font-size: 16px;
+            }
+
+            .boy-image, .job-image, .tool-image {
+                height: 180px;
+                max-width: 180px;
+            }
+
+            .start-btn {
+                padding: 12px 30px;
+                font-size: 16px;
+            }
+
+            .job-title {
+                font-size: 24px;
+            }
+
+            .return-btn {
+                padding: 10px 30px;
+                font-size: 16px;
+            }
+
+            .congrats-title {
+                font-size: 28px;
+            }
+
+            .congrats-message {
+                font-size: 16px;
+            }
+
+            .question-title {
+                font-size: 22px;
+            }
+
+            .answer-grid {
+                gap: 10px;
+            }
+
+            .answer-card {
+                padding: 12px 8px;
+            }
+
+            .congrats-container, .job-container, .question-container {
+                padding: 25px 15px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .doors-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .door-image {
+                height: 140px;
+            }
+
+            .answer-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -541,35 +682,30 @@
                 <div class="door-image">
                     <img src="d1.png" alt="Door 1">
                 </div>
-                <!-- <div class="door-name">طبيب</div> -->
             </div>
             <div class="door-card" id="door-artist" onclick="selectJob('artist')">
                 <div class="checkmark">✓</div>
                 <div class="door-image">
                     <img src="d2.png" alt="Door 2">
                 </div>
-                <!-- <div class="door-name">فنان</div> -->
             </div>
             <div class="door-card" id="door-engineer" onclick="selectJob('engineer')">
                 <div class="checkmark">✓</div>
                 <div class="door-image">
                     <img src="d3.png" alt="Door 3">
                 </div>
-                <!-- <div class="door-name">مهندس</div> -->
             </div>
             <div class="door-card" id="door-police" onclick="selectJob('police')">
                 <div class="checkmark">✓</div>
                 <div class="door-image">
                     <img src="d4.png" alt="Door 4">
                 </div>
-                <!-- <div class="door-name">شرطي</div> -->
             </div>
             <div class="door-card" id="door-teacher" onclick="selectJob('teacher')">
                 <div class="checkmark">✓</div>
                 <div class="door-image">
                     <img src="d5.png" alt="Door 5">
                 </div>
-                <!-- <div class="door-name">معلم</div> -->
             </div>
         </div>
     </div>
@@ -583,17 +719,17 @@
                 <div class="answer-card" onclick="checkAnswer('doctor')">
                     <div class="door-name">طبيب</div>
                 </div>
-                <div class="answer-card" onclick="checkAnswer('artist')">
-                    <div class="door-name">فنان</div>
-                </div>
                 <div class="answer-card" onclick="checkAnswer('engineer')">
                     <div class="door-name">مهندس</div>
+                </div>
+                <div class="answer-card" onclick="checkAnswer('teacher')">
+                    <div class="door-name">معلم</div>
                 </div>
                 <div class="answer-card" onclick="checkAnswer('police')">
                     <div class="door-name">شرطي</div>
                 </div>
-                <div class="answer-card" onclick="checkAnswer('teacher')">
-                    <div class="door-name">معلم</div>
+                <div class="answer-card" onclick="checkAnswer('artist')">
+                    <div class="door-name">فنان</div>
                 </div>
             </div>
         </div>
