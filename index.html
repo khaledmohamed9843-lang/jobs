@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>لعبة أبواب المهن</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -12,16 +13,17 @@
         }
 
         body {
-            font-family: 'Cairo', 'Arial', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Tajawal', 'Comic Sans MS', 'Arial', sans-serif;
+            background: linear-gradient(135deg, #FFA07A 0%, #FF6B9D 50%, #C44569 100%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden;
+            overflow-x: hidden;
             position: relative;
         }
 
+        /* Fun animated background */
         body::before {
             content: '';
             position: absolute;
@@ -29,188 +31,248 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: 
-                radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.3) 0%, transparent 30%),
+                radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.25) 0%, transparent 30%),
+                radial-gradient(circle at 40% 80%, rgba(255, 255, 255, 0.2) 0%, transparent 25%);
+            animation: floatBubbles 10s ease-in-out infinite;
             pointer-events: none;
+        }
+
+        @keyframes floatBubbles {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-20px) scale(1.05); }
+        }
+
+        /* Floating stars decoration */
+        .star {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #FFD700;
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+            animation: twinkle 2s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.5; transform: scale(1) rotate(0deg); }
+            50% { opacity: 1; transform: scale(1.2) rotate(180deg); }
         }
 
         .screen {
             display: none;
             width: 100%;
-            max-width: 1200px;
+            max-width: 120%;
             padding: 20px;
             text-align: center;
         }
 
         .screen.active {
             display: block;
-            animation: fadeIn 0.5s ease-in;
+            animation: bounceIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.95); }
-            to { opacity: 1; transform: scale(1); }
+        @keyframes bounceIn {
+            0% { opacity: 0; transform: scale(0.3); }
+            50% { transform: scale(1.05); }
+            70% { transform: scale(0.9); }
+            100% { opacity: 1; transform: scale(1); }
         }
 
         /* First Screen */
         .boy-container {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 30px;
+            background: linear-gradient(135deg, #FFE66D 0%, #FF6B6B 100%);
+            border-radius: 40px;
             padding: 50px;
             box-shadow: 
                 0 20px 60px rgba(0,0,0,0.3),
-                0 0 0 1px rgba(255, 255, 255, 0.5) inset;
+                0 0 0 8px rgba(255, 255, 255, 0.5),
+                0 0 0 16px rgba(255, 255, 255, 0.2);
             max-width: 500px;
             margin: 0 auto;
             transition: transform 0.3s ease;
+            animation: wiggle 3s ease-in-out infinite;
+        }
+
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-3deg); }
+            75% { transform: rotate(3deg); }
         }
 
         .boy-container:hover {
-            transform: translateY(-5px);
+            transform: scale(1.05) rotate(0deg);
+            animation: none;
         }
 
         .boy-image {
             width: 100%;
             max-width: 300px;
             height: 300px;
-            border-radius: 20px;
+            border-radius: 30px;
             margin: 0 auto 30px;
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            padding: 10px;
-            box-shadow: 0 10px 30px rgba(245, 87, 108, 0.3);
+            background: linear-gradient(135deg, #A8E6CF 0%, #FFD3B6 100%);
+            padding: 15px;
+            box-shadow: 
+                0 15px 40px rgba(0,0,0,0.3),
+                inset 0 -5px 20px rgba(0,0,0,0.1);
+            border: 5px solid white;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
         }
 
         .boy-image img {
             height: 100%;
-            border-radius: 15px;
+            border-radius: 20px;
             background: white;
             padding: 10px;
         }
 
         .start-btn {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            background: linear-gradient(135deg, #4ECDC4 0%, #44A08D 100%);
             color: white;
             border: none;
-            padding: 20px 60px;
-            font-size: 24px;
-            border-radius: 50px;
+            padding: 25px 70px;
+            font-size: 32px;
+            font-weight: 900;
+            border-radius: 60px;
             cursor: pointer;
             box-shadow: 
-                0 10px 30px rgba(245, 87, 108, 0.4),
-                0 0 0 3px rgba(255, 255, 255, 0.3);
+                0 15px 40px rgba(68, 160, 141, 0.5),
+                0 0 0 5px rgba(255, 255, 255, 0.5),
+                inset 0 -8px 0 rgba(0,0,0,0.2);
             transition: all 0.3s ease;
-            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
             position: relative;
             overflow: hidden;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
 
         .start-btn::before {
-            content: '';
+            content: '⭐';
             position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.3);
-            transform: translate(-50%, -50%);
-            transition: width 0.6s, height 0.6s;
+            font-size: 20px;
+            animation: sparkle 1.5s ease-in-out infinite;
+            left: 20px;
         }
 
-        .start-btn:hover::before {
-            width: 300px;
-            height: 300px;
+        .start-btn::after {
+            content: '⭐';
+            position: absolute;
+            font-size: 20px;
+            animation: sparkle 1.5s ease-in-out infinite 0.75s;
+            right: 20px;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { transform: scale(1) rotate(0deg); opacity: 1; }
+            50% { transform: scale(1.5) rotate(180deg); opacity: 0.5; }
         }
 
         .start-btn:hover {
-            transform: translateY(-3px);
+            transform: translateY(-5px) scale(1.1);
             box-shadow: 
-                0 15px 40px rgba(245, 87, 108, 0.6),
-                0 0 0 3px rgba(255, 255, 255, 0.5);
+                0 20px 50px rgba(68, 160, 141, 0.7),
+                0 0 0 5px rgba(255, 255, 255, 0.8),
+                inset 0 -8px 0 rgba(0,0,0,0.2);
+            animation: none;
         }
 
         .start-btn:active {
-            transform: translateY(-1px);
+            transform: translateY(-2px) scale(1.05);
         }
 
         /* Doors Screen */
         .doors-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 30px;
-            margin-top: 30px;
+            margin-top: 40px;
         }
 
         .door-card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
+            background: linear-gradient(135deg, #FFE66D 0%, #FFAFBD 100%);
+            border-radius: 30px;
             padding: 25px;
             cursor: pointer;
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             box-shadow: 
-                0 10px 30px rgba(0,0,0,0.2),
-                0 0 0 1px rgba(255, 255, 255, 0.5) inset;
+                0 15px 40px rgba(0,0,0,0.25),
+                0 0 0 6px rgba(255, 255, 255, 0.4),
+                inset 0 -5px 15px rgba(0,0,0,0.1);
             position: relative;
-            overflow: hidden;
+            overflow: visible;
+            border: 5px solid white;
         }
 
-        .door-card::before {
-            content: '';
+        .door-card::after {
+            content: '✨';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
+            top: -15px;
+            right: -15px;
+            font-size: 30px;
+            animation: rotate 3s linear infinite;
         }
 
-        .door-card:hover::before {
-            opacity: 1;
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         .door-card.opened {
-            opacity: 0.6;
-            transform: scale(0.95);
+            opacity: 0.5;
+            transform: scale(0.9);
+            filter: grayscale(0.5);
         }
 
         .door-card:not(.opened):hover {
-            transform: translateY(-15px) scale(1.05);
+            transform: translateY(-20px) scale(1.1) rotate(-3deg);
             box-shadow: 
-                0 20px 50px rgba(0,0,0,0.3),
-                0 0 0 2px rgba(102, 126, 234, 0.5) inset;
+                0 25px 60px rgba(0,0,0,0.35),
+                0 0 0 8px rgba(255, 255, 255, 0.6),
+                inset 0 -5px 15px rgba(0,0,0,0.1);
         }
 
         .checkmark {
             position: absolute;
-            top: 10px;
-            right: 10px;
-            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+            top: 15px;
+            right: 15px;
+            background: linear-gradient(135deg, #4CAF50 0%, #8BC34A 100%);
             color: white;
-            width: 35px;
-            height: 35px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             display: none;
             align-items: center;
             justify-content: center;
-            font-size: 20px;
-            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.4);
-            animation: checkmarkPop 0.3s ease-out;
+            font-size: 30px;
+            font-weight: bold;
+            box-shadow: 
+                0 8px 20px rgba(76, 175, 80, 0.5),
+                0 0 0 4px white;
+            animation: checkmarkBounce 0.6s ease-out;
             z-index: 10;
         }
 
-        @keyframes checkmarkPop {
-            0% { transform: scale(0); }
-            50% { transform: scale(1.2); }
-            100% { transform: scale(1); }
+        @keyframes checkmarkBounce {
+            0% { transform: scale(0) rotate(0deg); }
+            50% { transform: scale(1.3) rotate(180deg); }
+            100% { transform: scale(1) rotate(360deg); }
         }
 
         .door-card.opened .checkmark {
@@ -219,264 +281,323 @@
 
         .door-image {
             width: 100%;
-            height: 200px;
-            border-radius: 15px;
+            height: 220px;
+            border-radius: 25px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             overflow: hidden;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 8px;
+            background: linear-gradient(135deg, #A8E6CF 0%, #DCEDC1 100%);
+            padding: 12px;
             transition: transform 0.3s ease;
+            box-shadow: inset 0 4px 10px rgba(0,0,0,0.1);
+            border: 4px solid white;
         }
 
         .door-card:hover .door-image {
-            transform: scale(1.05);
+            transform: scale(1.1) rotate(5deg);
         }
 
         .door-image img {
             height: 100%;
-            border-radius: 10px;
+            border-radius: 15px;
             background: white;
-            padding: 5px;
+            padding: 8px;
         }
 
         .door-name {
-            font-size: 26px;
-            font-weight: bolder;
-            background: linear-gradient(135deg, #07a59d 0%, #05847d 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-top: 10px;
-            text-shadow: 0 2px 10px rgba(7, 165, 157, 0.2);
+            font-size: 28px;
+            font-weight: 900;
+            color: #FF6B6B;
+            text-shadow: 
+                3px 3px 0 #FFE66D,
+                6px 6px 0 rgba(0,0,0,0.2);
+            margin-top: 15px;
+            letter-spacing: 1px;
         }
 
         .doors-title {
-            background: linear-gradient(135deg, #edf4fc 0%, #e9f3ff 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-size: 42px;
-            font-weight: bolder;
-            text-shadow: 0 5px 20px rgba(8, 114, 224, 0.3);
+            color: white;
+            font-size: 48px;
+            font-weight: 900;
+            text-shadow: 
+                4px 4px 0 #FF6B6B,
+                8px 8px 0 rgba(0,0,0,0.3);
             padding: 20px;
-            animation: titleFloat 3s ease-in-out infinite;
+            animation: titleBounce 2s ease-in-out infinite;
+            letter-spacing: 2px;
         }
 
-        @keyframes titleFloat {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+        @keyframes titleBounce {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-15px) scale(1.05); }
         }
 
         /* Job Container */
         .job-container {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 30px;
+            background: linear-gradient(135deg, #A8E6CF 0%, #FFD3B6 100%);
+            border-radius: 40px;
             padding: 50px;
             box-shadow: 
                 0 20px 60px rgba(0,0,0,0.3),
-                0 0 0 1px rgba(255, 255, 255, 0.5) inset;
-            max-width: 600px;
+                0 0 0 8px rgba(255, 255, 255, 0.5);
+            max-width: 650px;
             margin: 0 auto;
+            border: 6px solid white;
         }
 
         .job-image {
             width: 100%;
             max-width: 400px;
             height: 400px;
-            border-radius: 20px;
+            border-radius: 30px;
             margin: 0 auto 30px;
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 10px;
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
-            animation: jobImagePulse 2s ease-in-out infinite;
+            background: linear-gradient(135deg, #FFE66D 0%, #FFAFBD 100%);
+            padding: 15px;
+            box-shadow: 
+                0 15px 40px rgba(0,0,0,0.3),
+                inset 0 -5px 20px rgba(0,0,0,0.1);
+            animation: jobImageFloat 3s ease-in-out infinite;
+            border: 5px solid white;
         }
 
-        @keyframes jobImagePulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.02); }
+        @keyframes jobImageFloat {
+            0%, 100% { transform: translateY(0) rotate(-2deg); }
+            50% { transform: translateY(-20px) rotate(2deg); }
         }
 
         .job-image img {
             height: 100%;
-            border-radius: 15px;
+            border-radius: 20px;
             background: white;
             padding: 10px;
         }
 
         .job-title {
-            font-size: 36px;
-            font-weight: bolder;
-            background: linear-gradient(135deg, #07a59d 0%, #05847d 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            font-size: 42px;
+            font-weight: 900;
+            color: #FF6B6B;
+            text-shadow: 
+                3px 3px 0 #FFE66D,
+                6px 6px 0 rgba(0,0,0,0.2);
             margin-bottom: 30px;
-            animation: titleBounce 1s ease-out;
+            animation: titlePop 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            letter-spacing: 2px;
         }
 
-        @keyframes titleBounce {
-            0% { transform: scale(0); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
+        @keyframes titlePop {
+            0% { transform: scale(0) rotate(-180deg); }
+            100% { transform: scale(1) rotate(0deg); }
         }
 
         .return-btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #FF6B9D 0%, #C44569 100%);
             color: white;
             border: none;
-            padding: 15px 50px;
-            font-size: 20px;
+            padding: 20px 60px;
+            font-size: 24px;
+            font-weight: 900;
             border-radius: 50px;
             cursor: pointer;
             box-shadow: 
-                0 10px 30px rgba(102, 126, 234, 0.4),
-                0 0 0 3px rgba(255, 255, 255, 0.3);
+                0 12px 35px rgba(196, 69, 105, 0.5),
+                0 0 0 5px rgba(255, 255, 255, 0.5),
+                inset 0 -6px 0 rgba(0,0,0,0.2);
             transition: all 0.3s ease;
-            font-weight: bold;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .return-btn::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.3);
-            transform: translate(-50%, -50%);
-            transition: width 0.6s, height 0.6s;
-        }
-
-        .return-btn:hover::before {
-            width: 300px;
-            height: 300px;
+            letter-spacing: 1px;
         }
 
         .return-btn:hover {
-            transform: translateY(-3px);
+            transform: translateY(-5px) scale(1.05);
             box-shadow: 
-                0 15px 40px rgba(102, 126, 234, 0.6),
-                0 0 0 3px rgba(255, 255, 255, 0.5);
+                0 18px 45px rgba(196, 69, 105, 0.7),
+                0 0 0 5px rgba(255, 255, 255, 0.8),
+                inset 0 -6px 0 rgba(0,0,0,0.2);
         }
 
         /* Question Screen */
         .question-container {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 30px;
-            padding: 50px;
+            background: linear-gradient(135deg, #DCEDC1 0%, #FFD3B6 100%);
+            border-radius: 40px;
+            padding: 25px;
             box-shadow: 
                 0 20px 60px rgba(0,0,0,0.3),
-                0 0 0 1px rgba(255, 255, 255, 0.5) inset;
-            max-width: 900px;
+                0 0 0 8px rgba(255, 255, 255, 0.5);
+            max-width: 950px;
             margin: 0 auto;
+            border: 6px solid white;
         }
 
         .tool-image {
             width: 100%;
             max-width: 350px;
             height: 350px;
-            border-radius: 20px;
+            border-radius: 30px;
             margin: 0 auto 40px;
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 10px;
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
-            animation: jobImagePulse 2s ease-in-out infinite;
+            background: linear-gradient(135deg, #FFE66D 0%, #A8E6CF 100%);
+            padding: 15px;
+            box-shadow: 
+                0 15px 40px rgba(0,0,0,0.3),
+                inset 0 -5px 20px rgba(0,0,0,0.1);
+            animation: toolSpin 4s ease-in-out infinite;
+            border: 5px solid white;
+        }
+
+        @keyframes toolSpin {
+            0%, 100% { transform: rotate(-5deg) scale(1); }
+            50% { transform: rotate(5deg) scale(1.05); }
         }
 
         .tool-image img {
             height: 100%;
-            border-radius: 15px;
+            border-radius: 20px;
             background: white;
             padding: 10px;
         }
 
         .question-title {
-            font-size: 42px;
-            font-weight: bolder;
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            font-size: 46px;
+            font-weight: 900;
+            color: #FF6B9D;
+            text-shadow: 
+                3px 3px 0 #FFE66D,
+                6px 6px 0 rgba(0,0,0,0.2);
             margin-bottom: 40px;
-            animation: titleFloat 3s ease-in-out infinite;
+            animation: questionShake 1s ease-in-out infinite;
+            letter-spacing: 2px;
+        }
+
+        @keyframes questionShake {
+            0%, 100% { transform: rotate(-3deg); }
+            50% { transform: rotate(3deg); }
         }
 
         .answer-grid {
             display: flex;
+            flex-wrap: wrap;
             justify-content: center;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 20px;
+            gap: 10px;
             margin-top: 30px;
         }
 
         .answer-card {
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 15px;
-            padding: 20px;
+            background: linear-gradient(135deg, #FFE66D 0%, #A8E6CF 100%);
+            border-radius: 25px;
+            padding: 25px 35px;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            box-shadow: 
+                0 10px 25px rgba(0,0,0,0.2),
+                0 0 0 4px rgba(255, 255, 255, 0.5),
+                inset 0 -4px 10px rgba(0,0,0,0.1);
+            border: 4px solid white;
+            position: relative;
+        }
+
+        .answer-card::before {
+            content: '👆';
+            position: absolute;
+            top: -35px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 30px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .answer-card:hover::before {
+            opacity: 1;
+            animation: pointDown 0.5s ease-in-out infinite;
+        }
+
+        @keyframes pointDown {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(5px); }
         }
 
         .answer-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+            transform: translateY(-10px) scale(1.1);
+            box-shadow: 
+                0 15px 35px rgba(0,0,0,0.3),
+                0 0 0 5px rgba(255, 255, 255, 0.7),
+                inset 0 -4px 10px rgba(0,0,0,0.1);
         }
 
         /* Congratulations Screen */
         .congrats-container {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 30px;
+            background: linear-gradient(135deg, #FFD3B6 0%, #A8E6CF 100%);
+            border-radius: 40px;
             padding: 60px;
             box-shadow: 
                 0 20px 60px rgba(0,0,0,0.3),
-                0 0 0 1px rgba(255, 255, 255, 0.5) inset;
-            max-width: 600px;
+                0 0 0 8px rgba(255, 255, 255, 0.5);
+            max-width: 650px;
             margin: 0 auto;
+            border: 6px solid white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .congrats-container::before {
+            content: '🎊';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 60px;
+            animation: confetti 2s ease-in-out infinite;
+        }
+
+        .congrats-container::after {
+            content: '🎊';
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 60px;
+            animation: confetti 2s ease-in-out infinite 1s;
+        }
+
+        @keyframes confetti {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
         }
 
         .congrats-title {
-            font-size: 52px;
-            font-weight: bold;
-            background: linear-gradient(135deg, #f5576c 0%, #f093fb 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            font-size: 56px;
+            font-weight: 900;
+            color: #FF6B6B;
+            text-shadow: 
+                4px 4px 0 #FFE66D,
+                8px 8px 0 rgba(0,0,0,0.2);
             margin-bottom: 20px;
-            animation: celebrate 1s ease-in-out infinite;
-            text-shadow: 0 5px 20px rgba(245, 87, 108, 0.3);
+            animation: celebrateBounce 1s ease-in-out infinite;
+            letter-spacing: 2px;
         }
 
-        @keyframes celebrate {
-            0%, 100% { transform: scale(1) rotate(-2deg); }
-            50% { transform: scale(1.1) rotate(2deg); }
+        @keyframes celebrateBounce {
+            0%, 100% { transform: scale(1) rotate(-5deg); }
+            25% { transform: scale(1.1) rotate(5deg); }
+            50% { transform: scale(1.2) rotate(-5deg); }
+            75% { transform: scale(1.1) rotate(5deg); }
         }
 
         .congrats-message {
-            font-size: 26px;
-            background: linear-gradient(135deg, #07a59d 0%, #05847d 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 30px;
-            font-weight: bold;
+            font-size: 32px;
+            color: #4ECDC4;
+            text-shadow: 
+                2px 2px 0 white,
+                4px 4px 0 rgba(0,0,0,0.2);
+            margin-bottom: 40px;
+            font-weight: 900;
+            letter-spacing: 1px;
         }
 
         /* Responsive Design */
@@ -491,59 +612,127 @@
 
             .boy-container {
                 padding: 30px 20px;
-                border-radius: 20px;
+                border-radius: 30px;
                 max-width: 100%;
             }
 
             .boy-image {
-                max-width: 200px;
-                height: 200px;
+                max-width: 220px;
+                height: 220px;
                 margin-bottom: 20px;
             }
 
             .doors-grid {
                 grid-template-columns: repeat(2, 1fr);
-                gap: 15px;
-                margin-top: 20px;
+                gap: 20px;
+                margin-top: 25px;
             }
 
             .door-card {
-                padding: 15px;
-                border-radius: 15px;
+                padding: 18px;
+                border-radius: 25px;
             }
 
             .door-image {
-                height: 120px;
-                margin-bottom: 10px;
+                height: 140px;
+                margin-bottom: 12px;
             }
 
             .door-name {
-                font-size: 18px;
+                font-size: 22px;
             }
 
             .doors-title {
-                font-size: 28px;
+                font-size: 34px;
                 padding: 15px 10px;
             }
 
             .job-image, .tool-image {
+                height: 220px;
+                max-width: 220px;
+            }
+
+            .start-btn {
+                padding: 18px 45px;
+                font-size: 24px;
+            }
+
+            .job-container, .congrats-container, .question-container {
+                padding: 35px 25px;
+                border-radius: 30px;
+            }
+
+            .job-title {
+                font-size: 32px;
+                margin-bottom: 20px;
+            }
+
+            .return-btn {
+                padding: 15px 40px;
+                font-size: 20px;
+            }
+
+            .congrats-title {
+                font-size: 38px;
+            }
+
+            .congrats-message {
+                font-size: 24px;
+            }
+
+            .question-title {
+                font-size: 32px;
+                margin-bottom: 30px;
+            }
+
+            .answer-grid {
+                gap: 15px;
+            }
+
+            .answer-card {
+                padding: 18px 28px;
+                border-radius: 20px;
+            }
+
+            .checkmark {
+                width: 40px;
+                height: 40px;
+                font-size: 24px;
+                top: 12px;
+                right: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .doors-title {
+                font-size: 28px;
+                padding: 10px;
+            }
+
+            .door-card {
+                padding: 15px;
+            }
+
+            .door-image {
+                height: 120px;
+            }
+
+            .door-name {
+                font-size: 20px;
+            }
+
+            .boy-image, .job-image, .tool-image {
                 height: 200px;
                 max-width: 200px;
             }
 
             .start-btn {
-                padding: 15px 40px;
-                font-size: 18px;
-            }
-
-            .job-container, .congrats-container, .question-container {
-                padding: 30px 20px;
-                border-radius: 20px;
+                padding: 15px 35px;
+                font-size: 20px;
             }
 
             .job-title {
                 font-size: 28px;
-                margin-bottom: 20px;
             }
 
             .return-btn {
@@ -556,108 +745,39 @@
             }
 
             .congrats-message {
-                font-size: 18px;
+                font-size: 20px;
             }
 
             .question-title {
-                font-size: 26px;
-                margin-bottom: 25px;
-            }
-
-            .answer-grid {
-                display: grid;
-                grid-template-columns: repeat(2, 1fr);
-                gap: 12px;
-            }
-
-            .answer-card {
-                padding: 15px 10px;
-                border-radius: 12px;
-            }
-
-            .checkmark {
-                width: 28px;
-                height: 28px;
-                font-size: 16px;
-                top: 8px;
-                right: 8px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .doors-title {
-                font-size: 24px;
-                padding: 10px;
-            }
-
-            .door-card {
-                padding: 12px;
-            }
-
-            .door-image {
-                height: 100px;
-            }
-
-            .door-name {
-                font-size: 16px;
-            }
-
-            .boy-image, .job-image, .tool-image {
-                height: 180px;
-                max-width: 180px;
-            }
-
-            .start-btn {
-                padding: 12px 30px;
-                font-size: 16px;
-            }
-
-            .job-title {
-                font-size: 24px;
-            }
-
-            .return-btn {
-                padding: 10px 30px;
-                font-size: 16px;
-            }
-
-            .congrats-title {
                 font-size: 28px;
             }
 
-            .congrats-message {
-                font-size: 16px;
-            }
-
-            .question-title {
-                font-size: 22px;
-            }
-
-            .answer-grid {
-                gap: 10px;
-            }
-
             .answer-card {
-                padding: 12px 8px;
+                padding: 15px 25px;
             }
 
             .congrats-container, .job-container, .question-container {
-                padding: 25px 15px;
+                padding: 30px 20px;
             }
         }
 
         @media (max-width: 360px) {
             .doors-grid {
                 grid-template-columns: 1fr;
-                gap: 12px;
+                gap: 15px;
             }
 
             .door-image {
-                height: 140px;
+                height: 160px;
             }
 
             .answer-grid {
-                grid-template-columns: 1fr;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .answer-card {
+                width: 80%;
             }
         }
     </style>
@@ -675,7 +795,7 @@
 
     <!-- Doors Screen -->
     <div class="screen" id="doorsScreen">
-        <h1 class="doors-title">اختر باب مهنتك</h1>
+        <h1 class="doors-title">🚪 اختر باب مهنتك 🌟</h1>
         <div class="doors-grid">
             <div class="door-card" id="door-doctor" onclick="selectJob('doctor')">
                 <div class="checkmark">✓</div>
@@ -714,7 +834,7 @@
     <div class="screen" id="questionScreen">
         <div class="question-container">
             <div class="tool-image" id="toolImage"></div>
-            <h2 class="question-title">ما هي المهنة؟</h2>
+            <h2 class="question-title">❓ ما هي المهنة ❓</h2>
             <div class="answer-grid">
                 <div class="answer-card" onclick="checkAnswer('doctor')">
                     <div class="door-name">طبيب</div>
@@ -866,25 +986,34 @@
             stopAllAudio();
             
             if (selectedJob === currentJob) {
-                // Correct answer
-                openedDoors.add(currentJob);
-                document.getElementById(`door-${currentJob}`).classList.add('opened');
-                
-                const jobTitle = document.getElementById('jobTitle');
-                const jobImage = document.getElementById('jobImage');
-                
-                jobTitle.textContent = jobNames[currentJob];
-                jobImage.innerHTML = `<img src="${jobImages[currentJob]}" alt="${jobNames[currentJob]}">`;
-                
-                showScreen('jobScreen');
-                
-                // Play job audio
-                currentAudio = new Audio(`${currentJob}.mp3`);
-                currentAudio.addEventListener('ended', () => {
-                    btn.style.display = '';
-                });
-                currentAudio.play().catch(err => console.log('Job audio failed:', err));
-            } else {
+    stopAllAudio();
+
+    openedDoors.add(currentJob);
+    document.getElementById(`door-${currentJob}`).classList.add('opened');
+
+    const jobTitle = document.getElementById('jobTitle');
+    const jobImage = document.getElementById('jobImage');
+
+    jobTitle.textContent = jobNames[currentJob];
+    jobImage.innerHTML = `<img src="${jobImages[currentJob]}" alt="${jobNames[currentJob]}">`;
+
+    showScreen('jobScreen');
+
+    // Play true.mp3 first
+    const trueAudio = new Audio('true.mp3');
+
+    trueAudio.addEventListener('ended', () => {
+        // After true.mp3 finishes, play the job audio
+        currentAudio = new Audio(`${currentJob}.mp3`);
+        currentAudio.addEventListener('ended', () => {
+            btn.style.display = '';
+        });
+        currentAudio.play().catch(err => console.log('Job audio failed:', err));
+    });
+
+    trueAudio.play().catch(err => console.log('True audio failed:', err));
+}
+ else {
                 // Wrong answer - play false audio only (no question repeat)
                 currentAudio = new Audio('false.mp3');
                 currentAudio.play().catch(err => console.log('False audio failed:', err));
